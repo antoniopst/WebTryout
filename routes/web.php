@@ -33,3 +33,6 @@ Route::get('/tryouts', [TryoutController::class, 'index'])->name('tryout.index')
 // Rute untuk melihat detail tryout berdasarkan ID
 Route::get('/tryouts/{id}', [TryoutController::class, 'show'])->name('tryout.show');
 
+Route::get('/tentang', function () {
+    return view('tentang');
+});
