@@ -12,12 +12,12 @@
     <nav class="flex justify-between items-center py-4 px-8 bg-gradient-to-r from-green-400 to-green-500 shadow-lg sticky top-0 z-10">
         <div class="flex items-center">
             <img src="/images/logo.png" alt="Logo" class="h-10 mr-3 transform transition duration-300 hover:scale-110">
-            <span class="text-white text-3xl font-extrabold">SKILLCHECK</span>
+            <a href="/" class="text-white text-3xl font-extrabold">SKILLCHECK</a>
         </div>
         <div class="hidden md:flex space-x-10 ml-10 mr-auto">
             <a href="/" class="text-white text-lg font-medium hover:text-green-100 hover:underline transform transition duration-300 ease-in-out hover:scale-110">Beranda</a>
             <a href="/soal" class="text-white text-lg font-medium hover:text-green-100 hover:underline transform transition duration-300 ease-in-out hover:scale-110">Soal</a>
-            <a href="#" class="text-white text-lg font-medium hover:text-green-100 hover:underline transform transition duration-300 ease-in-out hover:scale-110">Tentang Kami</a>
+            <a href="/tentang" class="text-white text-lg font-medium hover:text-green-100 hover:underline transform transition duration-300 ease-in-out hover:scale-110">Tentang Kami</a>
         </div>
         <div class="flex space-x-6">
             <a href="/daftar" class="bg-white text-green-600 text-lg px-6 py-3 rounded-full border border-white hover:bg-green-600 hover:text-white transition-all duration-300 ease-in-out transform hover:scale-110">Daftar</a>
@@ -25,13 +25,13 @@
         </div>
     </nav>    
 
-    <main class="bg-gradient-to-b from-green-100 to-gray-50 py-16">
+    <main class="h-screen bg-gradient-to-b from-green-100 to-gray-50 py-16">
         <div class="container mx-auto px-6 md:px-12">
             <h1 class="text-4xl font-bold text-gray-800 mb-8 text-center">KELOMPOK <span class="text-green-500">SOAL</span></h1>
             <ul class="space-y-6">
                 <!-- Matematika -->
                 <li class="p-4 bg-white shadow-lg rounded-md hover:bg-green-100 hover:shadow-xl transition-all duration-300 ease-in-out">
-                    <a href="soal-mtk" class="flex items-center justify-between cursor-pointer">
+                    <a href="soal/matematika" class="flex items-center justify-between cursor-pointer">
                         <div class="flex items-center">
                             <div class="text-orange-500 mr-4">
                                 <i class="fas fa-book"></i>
@@ -44,7 +44,7 @@
     
                 <!-- Bahasa Indonesia -->
                 <li class="p-4 bg-white shadow-lg rounded-md hover:bg-green-100 hover:shadow-xl transition-all duration-300 ease-in-out">
-                    <a href="soal-indonesia" class="flex items-center justify-between cursor-pointer">
+                    <a href="soal/bahasa-indonesia" class="flex items-center justify-between cursor-pointer">
                         <div class="flex items-center">
                             <div class="text-green-500 mr-4">
                                 <i class="fas fa-book"></i>
@@ -55,9 +55,9 @@
                     </a>
                 </li>
     
-                <!-- Bahasa Inggri -->
+                <!-- Bahasa Inggris -->
                 <li class="p-4 bg-white shadow-lg rounded-md hover:bg-green-100 hover:shadow-xl transition-all duration-300 ease-in-out">
-                    <a href="/soal-inggris" class="flex items-center justify-between cursor-pointer">
+                    <a href="soal/bahasa-inggris" class="flex items-center justify-between cursor-pointer">
                         <div class="flex items-center">
                             <div class="text-blue-500 mr-4">
                                 <i class="fas fa-book"></i>

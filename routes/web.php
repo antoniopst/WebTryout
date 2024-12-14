@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TryoutController;
-use App\Http\Controllers\SoalMTKController;
+use App\Http\Controllers\SoalController;
 
 Route::get('/daftar', function () {
     return view('daftar');
@@ -20,8 +20,12 @@ Route::get('/soal', function () {
     return view('soal');
 });
 
-Route::get('/soal-mtk', [SoalMTKController::class, 'index']);
-Route::get('/soal-mtk/questions', [SoalMTKController::class, 'getQuestions']);
+Route::get('/tentang', function () {
+    return view('tentang');
+});
+
+Route::get('/soal/{mataPelajaran}', [SoalController::class, 'index']);
+Route::get('/soal/{mataPelajaran}/questions', [SoalController::class, 'getQuestions']);
 
 
 // Rute untuk halaman beranda (root) yang menampilkan daftar tryout
