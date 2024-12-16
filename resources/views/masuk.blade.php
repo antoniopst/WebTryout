@@ -5,17 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Profil</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        function showDetailLogin() {
-            document.getElementById('form-detail-profil').style.display = 'none';
-            document.getElementById('form-detail-login').style.display = 'block';
-        }
-        
-        function showDetailProfil() {
-        document.getElementById('form-detail-login').style.display = 'none';
-        document.getElementById('form-detail-profil').style.display = 'block';
-        }
-    </script>
 </head>
 
 <body>
@@ -27,14 +16,36 @@
         </div>
         <div class="hidden md:flex space-x-10 ml-10 mr-auto">
             <a href="/" class="text-white text-lg font-medium hover:text-green-100 hover:underline transform transition duration-300 ease-in-out hover:scale-110">Beranda</a>
-            <a href="/soal" class="text-white text-lg font-medium hover:text-green-100 hover:underline transform transition duration-300 ease-in-out hover:scale-110">Soal</a>
+            <a href="#" onclick="alertLogin();" class="text-white text-lg font-medium hover:text-green-100 hover:underline transform transition duration-300 ease-in-out hover:scale-110">Soal</a>
             <a href="/tentang" class="text-white text-lg font-medium hover:text-green-100 hover:underline transform transition duration-300 ease-in-out hover:scale-110">Tentang Kami</a>
         </div>
         <div class="flex space-x-6">
-            <a href="/daftar" class="bg-white text-green-600 text-lg px-6 py-3 rounded-full border border-white hover:bg-green-600 hover:text-white transition-all duration-300 ease-in-out transform hover:scale-110">Daftar</a>
-            <a href="/masuk" class="text-white text-lg px-6 py-3 rounded-full border border-white hover:bg-green-600 hover:text-white transition-all duration-300 ease-in-out transform hover:scale-110">Masuk</a>
+            @guest
+                <a href="/daftar" class="bg-white text-green-600 text-lg px-6 py-3 rounded-full border border-white hover:bg-green-600 hover:text-white transition-all duration-300 ease-in-out transform hover:scale-110">Daftar</a>
+                <a href="/masuk" class="text-white text-lg px-6 py-3 rounded-full border border-white hover:bg-green-600 hover:text-white transition-all duration-300 ease-in-out transform hover:scale-110">Masuk</a>
+            @endguest
+    
+            @auth
+                <!-- Show 'Keluar' button when the user is authenticated -->
+                <form action="{{ route('logout') }}" method="POST" class="inline">
+                    @csrf
+                    <button type="submit" class="text-white text-lg px-6 py-3 rounded-full border border-red-500 bg-red-500 hover:bg-red-600 hover:border-red-600 transition-all duration-300 ease-in-out transform hover:scale-110">
+                        Keluar
+                    </button>
+                </form>
+            @endauth
         </div>
-    </nav>    
+    </nav>
+    
+    <script>
+        function alertLogin() {
+            @if (!Auth::check())
+                alert('Harap login terlebih dahulu untuk mengakses soal!');
+            @else
+                window.location.href = '/soal';
+            @endif
+        }
+    </script>    
 
     <main class="bg-gradient-to-b from-green-100 to-gray-50 py-16">
         <div class="flex items-center justify-center h-screen">
@@ -49,10 +60,14 @@
                     <h1 class="text-2xl font-semibold text-gray-700 mt-4">Masuk</h1>
                 </div>
         
-                <form action="#" method="POST">
+                <form action="{{ route('login') }}" method="POST">
+                    @csrf
                     <div class="mb-4">
                         <label for="email" class="block text-sm font-medium text-gray-600">Alamat E-mail</label>
-                        <input type="email" id="email" name="email" placeholder="Alamat E-mail" class="w-full px-4 py-2 mt-2 border rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-400" required>
+                        <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="Alamat E-mail" class="w-full px-4 py-2 mt-2 border rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-400" required>
+                        @error('email')
+                            <p class="text-red-500 text-sm">{{ $message }}</p>
+                        @enderror
                     </div>
                     
                     <div class="mb-4">
@@ -60,17 +75,20 @@
                         <div class="relative">
                             <input type="password" id="password" name="password" placeholder="Password" class="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-400" required>
                         </div>
+                        @error('password')
+                            <p class="text-red-500 text-sm">{{ $message }}</p>
+                        @enderror
                     </div>
-        
+                
                     <div class="mb-6">
                         <div class="flex items-center">
                             <input type="checkbox" id="recaptcha" name="recaptcha" class="mr-2" required>
                             <label for="recaptcha" class="text-sm text-gray-600">Saya bukan robot</label>
                         </div>
                     </div>
-        
+                
                     <button type="submit" class="w-full bg-green-500 text-white py-2 rounded-lg font-semibold hover:bg-green-600">Masuk</button>
-                </form>
+                </form>                
         
                 <div class="text-center mt-4">
                     <a href="#" class="text-sm text-green-500 hover:underline">Lupa password?</a>

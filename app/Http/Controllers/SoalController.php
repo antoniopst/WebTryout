@@ -3,75 +3,51 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Mapel;
+use App\Models\Soal;
 
 class SoalController extends Controller
 {
     // Menampilkan halaman soal berdasarkan mata pelajaran
     public function index($mataPelajaran)
     {
-        $validSubjects = ['matematika', 'bahasa-indonesia', 'bahasa-inggris'];
+        // Ambil data mata pelajaran dari database berdasarkan slug
+        $mapel = Mapel::where('slug', $mataPelajaran)->first();
 
-        // Validasi mata pelajaran
-        if (!in_array($mataPelajaran, $validSubjects)) {
+        // Validasi jika mata pelajaran tidak ditemukan
+        if (!$mapel) {
             abort(404, 'Mata pelajaran tidak ditemukan.');
         }
 
-        $title = ucfirst(str_replace('-', ' ', $mataPelajaran));
+        // Kirim data ke view
+        $title = $mapel->nama_mapel; // Sesuaikan dengan kolom 'nama_mapel' di tabel
         return view('soal.index', compact('mataPelajaran', 'title'));
     }
 
     // API untuk menyediakan soal berdasarkan mata pelajaran
     public function getQuestions($mataPelajaran)
     {
-        $questionsBank = [
-            'matematika' => [
-                [
-                    'id' => 1,
-                    'question' => "Nilai (0,5 + 0,6)^2 adalah ....",
-                    'options' => ["5121", "12,1", "1,21", "0,121", "0,0121"],
-                    'correctAnswer' => 2
-                ],
-                [
-                    'id' => 2,
-                    'question' => "Nilai 2 + 2 adalah ....",
-                    'options' => ["1", "2", "3", "4", "5"],
-                    'correctAnswer' => 3
-                ],
-            ],
-            'bahasa-indonesia' => [
-                [
-                    'id' => 1,
-                    'question' => "Antonim dari 'besar' adalah ....",
-                    'options' => ["Kecil", "Tinggi", "Lebar", "Pendek"],
-                    'correctAnswer' => 0
-                ],
-                [
-                    'id' => 2,
-                    'question' => "Sinonim dari 'cerdas' adalah ....",
-                    'options' => ["Bodoh", "Pintar", "Malas", "Pelupa"],
-                    'correctAnswer' => 1
-                ],
-            ],
-            'bahasa-inggris' => [
-                [
-                    'id' => 1,
-                    'question' => "What is the past tense of 'go'?",
-                    'options' => ["Gone", "Went", "Going", "Goes"],
-                    'correctAnswer' => 1
-                ],
-                [
-                    'id' => 2,
-                    'question' => "Which one is a fruit?",
-                    'options' => ["Apple", "Table", "Chair", "Window"],
-                    'correctAnswer' => 0
-                ],
-            ],
-        ];
+        // Ambil data mata pelajaran dari database berdasarkan slug
+        $mapel = Mapel::where('slug', $mataPelajaran)->first();
 
-        if (!isset($questionsBank[$mataPelajaran])) {
-            abort(404, 'Soal tidak ditemukan untuk mata pelajaran ini.');
+        // Validasi jika mata pelajaran tidak ditemukan
+        if (!$mapel) {
+            abort(404, 'Mata pelajaran tidak ditemukan.');
         }
 
-        return response()->json($questionsBank[$mataPelajaran]);
+        // Ambil soal-soal yang terkait dengan mata pelajaran
+        $questions = Soal::where('mapel_id', $mapel->id)->get();
+
+        // Format ulang data soal untuk dikirim sebagai JSON
+        $formattedQuestions = $questions->map(function ($question) {
+            return [
+                'id' => $question->id,
+                'question' => $question->question, // Sesuaikan dengan kolom 'question' di tabel
+                'options' => json_decode($question->options, true), // Pilihan dalam format JSON
+                'correctAnswer' => $question->correct_answer // Sesuaikan dengan kolom 'correct_answer' di tabel
+            ];
+        });
+
+        return response()->json($formattedQuestions);
     }
 }
