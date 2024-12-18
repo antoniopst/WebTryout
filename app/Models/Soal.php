@@ -11,8 +11,16 @@ class Soal extends Model
 
     protected $table = 'soal';
 
+    protected $fillable = [
+        'question_text', // Tambahkan nama kolom sesuai dengan database
+        'correct_answer',
+        'options',
+        'mapel_id', // Jika Anda menggunakan relasi ke Mapel
+    ];
+
     public function mapel()
     {
         return $this->belongsTo(Mapel::class, 'mapel_id');
     }
 }
+
