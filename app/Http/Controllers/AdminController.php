@@ -12,7 +12,7 @@ class AdminController extends Controller
     // Menampilkan dashboard admin
     public function index()
     {
-        return view('admin.dashboard'); // Gantilah dengan view yang sesuai
+        return view('admin'); // Gantilah dengan view yang sesuai
     }
 
     // Menampilkan daftar pengguna

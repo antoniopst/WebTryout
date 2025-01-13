@@ -5,38 +5,19 @@ use App\Http\Controllers\SoalController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MapelController;
-<<<<<<< HEAD
-
-=======
 use App\Http\Controllers\AdminMapelController;
 use App\Http\Controllers\AdminKategoriController;
 use App\Http\Controllers\AdminSoalController;
 use App\Http\Controllers\AdminUserController;
->>>>>>> elang/main
 
 // Authentication Routes
 Route::get('/masuk', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/masuk', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-<<<<<<< HEAD
-=======
 // Admin Routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
-<<<<<<< HEAD
-    
-    // Rute untuk melihat user
-    Route::get('/admin/users', [AdminController::class, 'indexUsers'])->name('admin.users.index');
-
-    // Rute untuk mengelola soal
-    Route::get('/admin/soal', [AdminController::class, 'indexSoal'])->name('admin.soal.index');
-    Route::get('/admin/soal/create', [AdminController::class, 'createSoal'])->name('admin.soal.create');
-    Route::post('/admin/soal', [AdminController::class, 'storeSoal'])->name('admin.soal.store');
-    Route::get('/admin/soal/{id}/edit', [AdminController::class, 'editSoal'])->name('admin.soal.edit');
-    Route::put('/admin/soal/{id}', [AdminController::class, 'updateSoal'])->name('admin.soal.update');
-    Route::delete('/admin/soal/{id}', [AdminController::class, 'deleteSoal'])->name('admin.soal.delete');
-=======
 
     // Mapel Routes
     Route::prefix('admin/mapel')->group(function () {
@@ -76,10 +57,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/update/{id}', [AdminUserController::class, 'update'])->name('admin.users.update');
         Route::post('/delete/{id}', [AdminUserController::class, 'destroy'])->name('admin.users.delete');
     });
->>>>>>> 7e6e4db50ee003f5ce36e121374272154efdc1e9
 });
 
->>>>>>> elang/main
 // Registration Routes
 Route::get('/daftar', function () {
     return view('daftar');
@@ -109,54 +88,3 @@ Route::middleware('auth')->group(function () {
 Route::get('/tentang', function () {
     return view('tentang');
 })->name('tentang');
-
-<<<<<<< HEAD
-=======
-
-// Group route admin yang dilindungi
-Route::middleware(['auth'])->group(function () {
-    // Route untuk halaman Admin
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
-
-    // Route untuk kelola user
-    Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
-    
-    // Route untuk memperbarui user
-    Route::get('/admin/users/{id}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
-    Route::put('/admin/users/{id}', [AdminController::class, 'updateUser'])->name('admin.users.update');
-
-    // Route untuk menghapus user
-    Route::delete('/admin/users/{id}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
-});
-
-// Admin Routes for Soal
-Route::middleware(['auth'])->prefix('admin')->group(function () {
-    Route::get('/soal', [SoalController::class, 'admin'])->name('admin.soal.index');
-    Route::get('/soal/create', [SoalController::class, 'create'])->name('admin.soal.create');
-    Route::post('/soal', [SoalController::class, 'store'])->name('admin.soal.store');
-    Route::get('/soal/{id}/edit', [SoalController::class, 'edit'])->name('admin.soal.edit');
-    Route::put('/soal/{id}', [SoalController::class, 'update'])->name('admin.soal.update');
-    Route::delete('/soal/{id}', [SoalController::class, 'destroy'])->name('admin.soal.destroy');
-});
-
-// Admin Routes for Mapel
-Route::middleware(['auth'])->prefix('admin')->group(function () {
-    // Route untuk menampilkan daftar mapel
-    Route::get('/mapel', [MapelController::class, 'index'])->name('admin.mapel.index');
-
-    // Route untuk menampilkan form tambah mapel
-    Route::get('/mapel/create', [MapelController::class, 'create'])->name('admin.mapel.create');
-
-    // Route untuk menyimpan mapel baru
-    Route::post('/mapel', [MapelController::class, 'store'])->name('admin.mapel.store');
-
-    // Route untuk menampilkan form edit mapel
-    Route::get('/mapel/{id}/edit', [MapelController::class, 'edit'])->name('admin.mapel.edit');
-
-    // Route untuk memperbarui mapel
-    Route::put('/mapel/{id}', [MapelController::class, 'update'])->name('admin.mapel.update');
-
-    // Route untuk menghapus mapel
-    Route::delete('/mapel/{id}', [MapelController::class, 'destroy'])->name('admin.mapel.destroy');
-});
->>>>>>> 7e6e4db50ee003f5ce36e121374272154efdc1e9
