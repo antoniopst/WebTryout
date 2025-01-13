@@ -13,6 +13,17 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Admin Routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+    
+    // Rute untuk melihat user
+    Route::get('/admin/users', [AdminController::class, 'indexUsers'])->name('admin.users.index');
+
+    // Rute untuk mengelola soal
+    Route::get('/admin/soal', [AdminController::class, 'indexSoal'])->name('admin.soal.index');
+    Route::get('/admin/soal/create', [AdminController::class, 'createSoal'])->name('admin.soal.create');
+    Route::post('/admin/soal', [AdminController::class, 'storeSoal'])->name('admin.soal.store');
+    Route::get('/admin/soal/{id}/edit', [AdminController::class, 'editSoal'])->name('admin.soal.edit');
+    Route::put('/admin/soal/{id}', [AdminController::class, 'updateSoal'])->name('admin.soal.update');
+    Route::delete('/admin/soal/{id}', [AdminController::class, 'deleteSoal'])->name('admin.soal.delete');
 });
 
 // Registration Routes
@@ -46,3 +57,4 @@ Route::middleware('auth')->group(function () {
 Route::get('/tentang', function () {
     return view('tentang');
 })->name('tentang');
+

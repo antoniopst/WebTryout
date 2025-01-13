@@ -30,6 +30,12 @@
         <div class="flex items-center justify-center">
             <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-lg">
                 <h1 class="text-4xl font-bold text-center text-gray-800 mb-6">Soal {{ $title }}</h1>
+                
+                <!-- Jenis Kategori -->
+                <p id="kategori" class="text-lg font-medium text-gray-600 text-center mb-4">
+                    Loading kategori...
+                </p>
+                
                 <div id="question" class="text-lg font-medium text-gray-700 mb-6 text-center">
                     Loading question...
                 </div>
@@ -61,6 +67,7 @@
         let questions = [];
         let answers = [];
         const mataPelajaran = "{{ $mataPelajaran }}";
+        const kategoriElement = document.getElementById('kategori');
         const questionElement = document.getElementById('question');
         const optionsElement = document.getElementById('options');
         const prevBtn = document.getElementById('prev-btn');
@@ -81,6 +88,11 @@
 
         function loadQuestion() {
             const question = questions[currentQuestionIndex];
+            
+            // Menampilkan kategori soal
+            kategoriElement.textContent = `Kategori: ${question.kategori}`;
+            
+            // Menampilkan soal
             questionElement.textContent = question.question;
 
             optionsElement.innerHTML = '';
@@ -145,6 +157,7 @@
             const score = Math.round((correctCount / questions.length) * 100);
             const scoreColor = score >= 70 ? 'text-green-500' : 'text-red-500';
 
+            kategoriElement.style.display = 'none'; // Sembunyikan kategori saat hasil muncul
             questionElement.textContent = 'Quiz Completed!';
             optionsElement.innerHTML = '';
             prevBtn.style.display = 'none';
