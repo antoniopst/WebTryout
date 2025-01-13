@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< HEAD
 use Illuminate\Http\Request;
+=======
+>>>>>>> elang/main
 use App\Models\Mapel;
 
 class MapelController extends Controller
 {
+<<<<<<< HEAD
     // Menampilkan daftar mapel
     public function index()
     {
@@ -62,3 +66,14 @@ class MapelController extends Controller
         return redirect()->route('admin.mapel.index')->with('success', 'Mapel berhasil dihapus.');
     }
 }
+=======
+    public function index()
+    {
+        // Ambil semua data mata pelajaran
+        $mapel = Mapel::all();
+        
+        // Kirim data ke view
+        return view('soal', compact('mapel'));
+    }
+}
+>>>>>>> elang/main

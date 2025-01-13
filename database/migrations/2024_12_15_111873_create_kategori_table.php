@@ -10,13 +10,10 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('soal', function (Blueprint $table) {
+        Schema::create('kategori', function (Blueprint $table) {
             $table->id(); // Primary key, auto-increment
             $table->foreignId('mapel_id')->constrained('mapel')->onDelete('cascade'); // Foreign key ke tabel mapel
-            $table->foreignId('kategori_id')->constrained('kategori')->onDelete('cascade'); // Foreign key ke tabel kategori
-            $table->text('question'); // Kolom untuk pertanyaan
-            $table->json('options'); // Kolom untuk opsi jawaban (format JSON)
-            $table->integer('correct_answer'); // Indeks jawaban benar
+            $table->string('nama_kategori'); // Nama kategori
             $table->timestamps(); // Kolom created_at dan updated_at
         });
     }
@@ -26,6 +23,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('soal');
+        Schema::dropIfExists('kategori');
     }
 };
